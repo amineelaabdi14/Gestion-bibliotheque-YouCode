@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+   width: 100vw;
+    height: 100vh;
+   background-image: url(IMAGES/bgLogin.jpg);
+   background-repeat: no-repeat;
+   background-size: cover;
+}
+#loginContainer{
+    background-color:#36393F;
+    height: 393px;
+    width: 70vw;
+    min-width: 370px;
+    max-width: 500px;
+    border-radius: 5px;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 0px 28px 0px 28px;
+}
+
+#logoContainer{
+    height: 60px;
+    width: 220px;
+    display: block;
+    margin: auto;           
+    margin-bottom: 20px;
+}
+.MyInputs{
+    border-radius: 5px;
+    background-color:#202225;
+    border: 0px;
+    color:#B9B9B9;
+    height: 50px;
+    width:100%;
+    padding-left: 20px;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+.MyLabels{
+    font-size: 16px;
+    color:#B9B9B9;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+#loginContainer a{
+    color:#02AAEC;
+    background: none;
+    border: none;
+    text-decoration: none;
+}
+button[name="signMeIn"],button[name="signMeUp"] {
+    background-color:#038DFE;
+    font-size: 16px;
+    font-weight: bold;
+    width: 118px;
+    height: 36px;
+    border-radius: 6px;
+    border: 0px;
+    color: white;
+}
