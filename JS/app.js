@@ -1,11 +1,17 @@
+
+document.getElementsByTagName('form')[0].reset();
+
 function createAccount ()
 {   
+    hideLoginError();
+    emailError.innerText="";
     document.getElementsByTagName('form')[0].reset();
     document.querySelector('label[for=password]').innerText="CONFIRM EMAIL";
     document.querySelector('label[for=password]').setAttribute('for','confirmEmail');
 
-    document.querySelector('input[name=password]').setAttribute('type','text');
+    document.querySelector('input[name=password]').setAttribute('type','email');
     document.querySelector('input[name=password]').setAttribute('name','confirmEmail');
+    document.querySelector('input[name=confirmEmail]').setAttribute('onkeyup','ckeckConfirmEmail()');
 
     document.querySelector('a[onclick="createAccount()"]').innerText="I already create an account";
 
@@ -16,12 +22,15 @@ function createAccount ()
 }
 function alrMember()
 {   
+    hideLoginError();
+    emailError.innerText="";
     document.getElementsByTagName('form')[0].reset();
     document.querySelector('label[for=confirmEmail]').innerText="PASSWORD";
     document.querySelector('label[for=confirmEmail]').setAttribute('for','password');
     
     document.querySelector('input[name=confirmEmail]').setAttribute('type','password');
     document.querySelector('input[name=confirmEmail]').setAttribute('name','password');
+    document.querySelector('input[name=password]').removeAttribute('onkeyup');
 
     document.querySelector('a[onclick="alrMember()"]').innerText="Create an account";
 
@@ -30,16 +39,38 @@ function alrMember()
 
     document.querySelector('a[onclick="alrMember()"]').setAttribute("onclick","createAccount()")
 }
-function validateEmail(e) {
+function validateEmail() {
+    
     let email=document.querySelector('input[name=email]').value;
-    var dakchi = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
-   if("amineelaabdi@gmail.com".match(dakchi))
+    let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+   if(email.match(pattern)&&email!="")
    {
-    alert('true');
+        emailError.innerText="";
+        document.querySelector('button[type=submit]').disabled=false;
    }
    else{
-    e.preventDefault();
-    alert('false');
+   
+    emailError.innerText="The email address format is incorrect";
    }
     
+  }
+
+  function hideLoginError()
+  { if(document.getElementById('loginErrorAlert')!=null)
+    {
+    document.getElementById('loginErrorAlert').setAttribute('class','d-none');
+    }
+  }
+
+  function ckeckConfirmEmail(){
+    let email=document.querySelector('input[name=email]').value;
+    let confirmEmail=document.querySelector('input[name=confirmEmail]').value;
+    if(email!=confirmEmail)
+    {
+        emailError.innerText="You must enter the same email address";
+    }
+    else{
+        emailError.innerText="";
+        document.querySelector('button[type=submit]').disabled=false;
+    }
   }
