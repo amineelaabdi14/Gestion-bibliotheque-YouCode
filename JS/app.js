@@ -3,7 +3,7 @@ document.getElementsByTagName('form')[0].reset();
 
 function createAccount ()
 {   
-    hideLoginError();
+    comfirEmailError.innerText="";
     emailError.innerText="";
     document.getElementsByTagName('form')[0].reset();
     document.querySelector('label[for=password]').innerText="CONFIRM EMAIL";
@@ -19,10 +19,14 @@ function createAccount ()
     document.querySelector('button[name=signMeIn]').setAttribute("name","signMeUp");
 
     document.querySelector('a[onclick="createAccount()"]').setAttribute("onclick","alrMember()")
+
+    fullName.innerHTML=`<label for="fullname" class="MyLabels">Full Name</label><br><input type="text" name="fullName" id="" class="MyInputs">`;
+    document.getElementById('loginContainer').style.height="500px";                 
 }
 function alrMember()
 {   
-    hideLoginError();
+    fullName.innerHTML="";
+    comfirEmailError.innerText="";
     emailError.innerText="";
     document.getElementsByTagName('form')[0].reset();
     document.querySelector('label[for=confirmEmail]').innerText="PASSWORD";
@@ -37,7 +41,9 @@ function alrMember()
     document.querySelector('button[name=signMeUp]').innerText="Sign In";
     document.querySelector('button[name=signMeUp]').setAttribute("name","signMeIn");
 
-    document.querySelector('a[onclick="alrMember()"]').setAttribute("onclick","createAccount()")
+    document.querySelector('a[onclick="alrMember()"]').setAttribute("onclick","createAccount()");
+
+    document.getElementById('loginContainer').style.height="400px";  
 }
 function validateEmail() {
     
@@ -50,27 +56,21 @@ function validateEmail() {
    }
    else{
    
-    emailError.innerText="The email address format is incorrect";
+        emailError.innerText="The email address format is incorrect";
    }
     
   }
 
-  function hideLoginError()
-  { if(document.getElementById('loginErrorAlert')!=null)
-    {
-    document.getElementById('loginErrorAlert').setAttribute('class','d-none');
-    }
-  }
 
   function ckeckConfirmEmail(){
     let email=document.querySelector('input[name=email]').value;
     let confirmEmail=document.querySelector('input[name=confirmEmail]').value;
     if(email!=confirmEmail)
     {
-        emailError.innerText="You must enter the same email address";
+        comfirEmailError.innerText="You must enter the same email address";
     }
     else{
-        emailError.innerText="";
+        comfirEmailError.innerText="";
         document.querySelector('button[type=submit]').disabled=false;
     }
   }

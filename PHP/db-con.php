@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "youcode_library";
+$dbname = "youcode_library_db";
 // Create connection
 $conn = mysqli_connect($servername, $username, $password,$dbname);
 // Check connection
