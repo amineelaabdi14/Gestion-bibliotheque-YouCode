@@ -11,7 +11,7 @@ function createAccount ()
 
     document.querySelector('input[name=password]').setAttribute('type','email');
     document.querySelector('input[name=password]').setAttribute('name','confirmEmail');
-    document.querySelector('input[name=confirmEmail]').setAttribute('onkeyup','ckeckConfirmEmail()');
+    document.querySelector('input[name=confirmEmail]').setAttribute('oninput','checkConfirmEmail()');
 
     document.querySelector('a[onclick="createAccount()"]').innerText="I already create an account";
 
@@ -34,7 +34,7 @@ function alrMember()
     
     document.querySelector('input[name=confirmEmail]').setAttribute('type','password');
     document.querySelector('input[name=confirmEmail]').setAttribute('name','password');
-    document.querySelector('input[name=password]').removeAttribute('onkeyup');
+    document.querySelector('input[name=password]').removeAttribute('oninput');
 
     document.querySelector('a[onclick="alrMember()"]').innerText="Create an account";
 
@@ -50,19 +50,22 @@ function validateEmail() {
     let email=document.querySelector('input[name=email]').value;
     let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
    if(email.match(pattern)&&email!="")
-   {
+   {    
+        checkConfirmEmail();
         emailError.innerText="";
         document.querySelector('button[type=submit]').disabled=false;
+        document.querySelector('button[type=submit]').style.filter="saturate(100%)";
    }
    else{
-   
+        document.querySelector('button[type=submit]').disabled=true;
+        document.querySelector('button[type=submit]').style.filter="saturate(0%)";
         emailError.innerText="The email address format is incorrect";
    }
     
   }
 
 
-  function ckeckConfirmEmail(){
+  function checkConfirmEmail(){
     let email=document.querySelector('input[name=email]').value;
     let confirmEmail=document.querySelector('input[name=confirmEmail]').value;
     if(email!=confirmEmail)

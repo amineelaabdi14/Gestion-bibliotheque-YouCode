@@ -31,13 +31,13 @@ if(isset($_COOKIE['UserToken']) )
             
             <div id="emailFormContainer">
                 <label for="email" class="MyLabels">EMAIL</label><br>
-                <input type="email" name="email" id="" class="MyInputs" onkeyup="validateEmail()" autocomplete="off">
+                <input type="email" name="email"  class="MyInputs" oninput="validateEmail()" autocomplete="off">
                 <div id="emailError" class="text-danger"></div>
             </div>
 
             <div class="mb-3">
                 <label for="password" class="MyLabels">PASSWORD</label><br>
-                <input type="password" name="password" id="" class="MyInputs">
+                <input type="password" name="password" class="MyInputs">
                 <div id="comfirEmailError" class="text-danger mb-0 "></div>
             </div>
             <div id="fullName"></div>
