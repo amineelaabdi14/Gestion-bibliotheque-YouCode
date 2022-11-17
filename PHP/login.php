@@ -1,3 +1,10 @@
+<?php 
+include 'script.php';
+if(isset($_COOKIE['UserToken']) )
+{   
+    header('Location: dashboard.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <?php include('head.php') ?>

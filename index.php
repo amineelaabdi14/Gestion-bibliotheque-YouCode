@@ -1,3 +1,3 @@
 <?php  
-    include 'PHP/issigned.php';
+    header('location: PHP/dashboard.php') ;
 ?>

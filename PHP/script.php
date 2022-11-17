@@ -1,4 +1,5 @@
 <?php
+
     //Import PHPMailer classes into the global namespace
     //These must be at the top of your script, not inside a function
     use PHPMailer\PHPMailer\PHPMailer;
@@ -15,21 +16,21 @@ function sendMail($email,$password)
 {   
     
 
-    //Load Composer's autoloader
-    require '../vendor/autoload.php';
+//Load Composer's autoloader
+require '../vendor/autoload.php';
 
-    //Create an instance; passing `true` enables exceptions
-    $mail = new PHPMailer(true);
+//Create an instance; passing `true` enables exceptions
+$mail = new PHPMailer(true);
 
-        //Server settings
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-        $mail->isSMTP();                                            //Send using SMTP
-        $mail->Host       = 'smtp.gmail.com';                       //Set the SMTP server to send through
-        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-        $mail->Username   = 'amineelaabdi@gmail.com';                     //SMTP username
-        $mail->Password   = 'wtaguljdvkrzwxjv';                               //SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-        $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+    //Server settings
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+    $mail->isSMTP();                                            //Send using SMTP
+    $mail->Host       = 'smtp.gmail.com';                       //Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+    $mail->Username   = 'amineelaabdi@gmail.com';                     //SMTP username
+    $mail->Password   = 'wtaguljdvkrzwxjv';                               //SMTP password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
     
     
      //Recipients
@@ -72,34 +73,34 @@ function signIn(){
     $password = $_POST['password'];
     $sql = "SELECT * FROM admins WHERE admin_email = '$email'";
     $result=mysqli_query($conn,$sql);
-    if(mysqli_num_rows($result) > 0)
+    if(mysqli_num_rows($result)==1)
     {   
-        $MyData;
-        foreach($result as $row)
-        {
-            $MyData[$row['admin_token']]=$row;
-        }
-        print_r($MyData);
-        die();
-        if(password_verify($password, $MyData['admin_token']['admin_password']))
+        $MyData=mysqli_fetch_assoc($result);
+        if(password_verify($password, $MyData['admin_password']))
         {   
-            $nameToHash = $MyData['admin_token']['admin_name'];
-            setcookie("UserTOken",generateToken($nameToHash),time() + (60));
-            $_SESSION['name'] = $MyData['admin_token']['admin_name'];
-            $_SESSION['birthday'] = $MyData['admin_token']['admin_birthday'];
-            $_SESSION['password'] = $MyData['admin_token']['admin_password'];
-            $_SESSION['email'] = $MyData['admin_token']['admin_email'];
+            $nameToHash = $MyData['admin_name'];
+            $newToken   =generateToken(generate_password());
+            $MyDataEmail=$MyData['admin_email'];
+            setcookie("UserToken",$newToken,time() + (3600*24*30), "/");
+            $sql="UPDATE admins SET admin_token= '$newToken' WHERE admin_email ='$MyDataEmail'";
+            mysqli_query($conn,$sql);
+            $_SESSION['name']     = $MyData['admin_name'];
+            $_SESSION['birthday'] = $MyData['admin_birthday'];
+            $_SESSION['password'] = $MyData['admin_password'];
+            $_SESSION['email']    = $MyData['admin_email'];
             header('Location: dashboard.php');
         }
-        else{
-            $_SESSION["result"] = "Incorrect email or password";
+        
+    }
+    else{
+        $_SESSION["result"] = "Incorrect email or password";
         header('Location: ../index.php');
-        }
     }
     
 }
 
 function signUp(){
+    
     global $conn;
     $email = $_POST['email'];
     $confirmEmail = $_POST['confirmEmail'];
@@ -111,32 +112,30 @@ function signUp(){
         $result=mysqli_query($conn,$sql);
         foreach($result as $row)
         {
-            $MyData[$row['admin_token']]=$row; // assigning every row in the database  into an index in the array
+            $MyData[$row['admin_email']]=$row; // assigning every row in the database  into an index in the array
         }
-        print_r($MyData);
-        die();
-        if(mysqli_num_rows($result) > 0)
-        {   
-            if(array_key_exists($email,$MyData['admin_token']['admin_email']))
-            {
-                $_SESSION["result"] = "You're already registered";
+          
+        if(array_key_exists($email,$MyData))
+        {
+            $_SESSION["result"] = "You're already registered";
+            header('Location: ../index.php');
+        }
+        else
+        {   $generatedPassword = generate_password();
+            $password = password_hash($generatedPassword,PASSWORD_DEFAULT);
+            $token = generateToken($fullName);
+            $sql = "INSERT INTO admins (admin_token,admin_email, admin_password, admin_name) VALUES ('$token','$email', '$password', ' $fullName')";
+            if(mysqli_query($conn,$sql))
+            {   
+                sendMail($email,$generatedPassword);
+                $_SESSION["result"] = "You're registered, the password was sent to your email";
                 header('Location: ../index.php');
             }
-            else
-            {
-                $password = password_hash(generate_password(),PASSWORD_DEFAULT);
-                $sql = "INSERT INTO admins (admin_email, admin_password, admin_name) VALUES ('$email', '$password', ' $fullName')";
-                if(mysqli_query($conn,$sql))
-                {   
-                    sendMail($email,$password);
-                    $_SESSION["result"] = "You're registered, the password was sent to your email";
-                    header('Location: ../index.php');
-                }
-                else{
-                    $_SESSION["result"] = "Something went wrong";
-                    header('Location: ../index.php');
-                }
-            } 
-        }      
+            else{
+                $_SESSION["result"] = "Something went wrong";
+                header('Location: ../index.php');
+            }
+        } 
+             
     }
-}    
+}  
