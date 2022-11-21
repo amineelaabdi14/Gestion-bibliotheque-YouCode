@@ -10,14 +10,13 @@
 a{
     text-decoration: none;
 }
-
 body {
    max-width: 100vw;
    height: 100vh;
    background-image: url(IMAGES/bgLogin.jpg);
    background-repeat: no-repeat;
    background-size: cover;
-   
+   overflow: hidden;
    min-width: 345px;
 }
 #loginContainer{
@@ -112,13 +111,13 @@ button[name="signMeIn"],button[name="signMeUp"] {
     overflow-y:hidden ;
 }
 
-@media screen and (max-width:576px) {
+@media screen and (max-width:768px) {
     #sideBar{
         width: 60px;
     }
 }
 .btn{
-    width: 100%;
+    width: 98%;
 }
 .btn:hover{
     background-color: #038DFE;
@@ -137,7 +136,7 @@ button[name="signMeIn"],button[name="signMeUp"] {
     padding: 5px 0px 5px 0px;
     margin: auto;
 }
-@media screen and (max-width:576px) {
+@media screen and (max-width:768px) {
     #signOutBtn>div{
         border: none;
     }
@@ -148,38 +147,53 @@ button[name="signMeIn"],button[name="signMeUp"] {
 #signOutBtn>div:hover .setRedColor{
     color: white;
 }
-table {
-    border: solid #2a2a2a 2px !important;
-    color: white;
-    border-radius: 5px;
-    overflow: hidden;
-    border-collapse: separate; 
-    /* border-spacing: 5em; */
-}
-th{
-    background-color: #1f1f23;
-    color: #B9B9B9;
-    padding: 6px;
-}
+
 tr{
-    color: white;
+    color: rgb(173, 173, 173);
 }
 table{
     background-color: #18181b;
     margin: auto;
+    min-height: 330px;
 }
 #dashboardContent{
-    padding: 30px 0px 10px 270px;
+    padding: 50px 0px 10px 270px;
+    height: 100vh;
+    overflow: scroll;
 }
-#dashboardContent h5 {
-    width:60%;
-    color: #B9B9B9;
-    font-weight: bold;
-    font-size: 15px;
-    margin-bottom: 20px;
+.table-responsive{
     margin: auto;
+    width: 70vw;
+    max-width: 800px;
+    min-width: 570px;
 }
-.MyTable{
-    margin: auto;
-    width:90%;
+@media screen and (max-width:992px) {
+    
+    .table-responsive{
+        margin: 0;
+        margin: auto;
+        width: 60vw;
+    }
+    #dashboardContent{
+        padding: 50px 0px 10px 270px;
+    }
 }
+@media screen and (max-width:768px) {
+    
+    .table-responsive{
+        margin: 0;
+        margin: auto;
+        width: 85vw;
+    }
+    #dashboardContent{
+        padding: 30px 0px 10px 80px;
+    }
+}
+.tableTitle
+{
+    color: #038DFE;
+}
+
+
+
+

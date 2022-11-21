@@ -1,8 +1,10 @@
 
-document.getElementsByTagName('form')[0].reset();
-
+// document.getElementsByTagName('form')[0].reset();
+let TempChecker=true;
 function createAccount ()
-{   
+{   TempChecker=false;
+    document.querySelector('button[type=submit]').style.filter="saturate(0%)";
+    emailError.innerText="The email address format is incorrect";
     comfirEmailError.innerText="";
     emailError.innerText="";
     document.getElementsByTagName('form')[0].reset();
@@ -25,6 +27,9 @@ function createAccount ()
 }
 function alrMember()
 {   
+    TempChecker=true;
+    document.querySelector('button[type=submit]').style.filter="saturate(0%)";
+    emailError.innerText="The email address format is incorrect";
     fullName.innerHTML="";
     comfirEmailError.innerText="";
     emailError.innerText="";
@@ -49,31 +54,68 @@ function validateEmail() {
     
     let email=document.querySelector('input[name=email]').value;
     let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-   if(email.match(pattern)&&email!="")
-   {    
-        checkConfirmEmail();
+    if(email.match(pattern))
+    {    
         emailError.innerText="";
-        document.querySelector('button[type=submit]').disabled=false;
-        document.querySelector('button[type=submit]').style.filter="saturate(100%)";
-   }
-   else{
+        if(TempChecker==true)
+        {
+            document.querySelector('button[type=submit]').disabled=false;
+            document.querySelector('button[type=submit]').style.filter="saturate(100%)";
+        }
+    }
+   else
+   {
         document.querySelector('button[type=submit]').disabled=true;
         document.querySelector('button[type=submit]').style.filter="saturate(0%)";
         emailError.innerText="The email address format is incorrect";
    }
+   if(document.querySelector('form[method=POST]').children[1].children[2].getAttribute('name')=="confirmEmail")
+    {
+        checkConfirmEmail();
+    }
     
   }
 
 
-  function checkConfirmEmail(){
-    let email=document.querySelector('input[name=email]').value;
-    let confirmEmail=document.querySelector('input[name=confirmEmail]').value;
-    if(email!=confirmEmail)
+function checkConfirmEmail(){
+let email=document.querySelector('input[name=email]').value;
+let confirmEmail=document.querySelector('input[name=confirmEmail]').value;
+if(email!=confirmEmail)
+{
+    comfirEmailError.innerText="You must enter the same email address";
+    document.querySelector('button[type=submit]').disabled=true;
+    document.querySelector('button[type=submit]').style.filter="saturate(0%)";
+}
+else{
+    comfirEmailError.innerText="";
+    document.querySelector('button[type=submit]').disabled=false;
+    document.querySelector('button[type=submit]').style.filter="saturate(100%)";
+}
+}
+
+function nav(Dir){
+    let direction =Dir;
+    if(direction=="pdp")
+    {   
+       location.href="../PHP/profile.php";
+    }
+    else if(direction=="fa-solid fa-user b- fs-5")
+    {   
+        window.location.href="../PHP/profile.php";
+        document.getElementsByClassName('fa-solid fa-user b- fs-5')[0].parentElement.style.backgroundColor="#038DFE";
+        // console.log(document.getElementsByClassName('fa-solid fa-user b- fs-5')[0]);
+        
+        
+        // document.getElementsByClassName('fa-solid fa-user b- fs-5')[0].parentElement.style.backgroundColor="#038DFE";
+        
+    }
+    else if(direction=="fa-solid fa-chart-line fs-5")
+    {   
+        // window.location.href="../PHP/dashboard.php";
+    }
+    else if(direction=="fa-solid fa-table-columns fs-5")
     {
-        comfirEmailError.innerText="You must enter the same email address";
+        window.location.href="../PHP/productslist.php";
     }
-    else{
-        comfirEmailError.innerText="";
-        document.querySelector('button[type=submit]').disabled=false;
-    }
-  }
+
+}

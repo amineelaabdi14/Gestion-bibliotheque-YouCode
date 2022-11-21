@@ -65,19 +65,19 @@ function generateToken($userName)
     
 }
 
-
-
 function signIn(){
     global $conn;
-    $email = $_POST['email'];
+    $email = $_POST['email'];;
+
     $password = $_POST['password'];
     $sql = "SELECT * FROM admins WHERE admin_email = '$email'";
-    $result=mysqli_query($conn,$sql);
-    if(mysqli_num_rows($result)==1)
+    $result=mysqli_query($conn,$sql); 
+    if(mysqli_num_rows($result)>0)
     {   
         $MyData=mysqli_fetch_assoc($result);
+        
         if(password_verify($password, $MyData['admin_password']))
-        {   
+        {
             $nameToHash = $MyData['admin_name'];
             $newToken   =generateToken(generate_password());
             $MyDataEmail=$MyData['admin_email'];
@@ -86,14 +86,17 @@ function signIn(){
             mysqli_query($conn,$sql);
             $_SESSION['name']     = $MyData['admin_name'];
             $_SESSION['birthday'] = $MyData['admin_birthday'];
-            $_SESSION['password'] = $MyData['admin_password'];
             $_SESSION['email']    = $MyData['admin_email'];
             header('Location: dashboard.php');
+        }
+        else{
+            $_SESSION["message"] = "Incorrect email or password";
+            header('Location: ../index.php');
         }
         
     }
     else{
-        $_SESSION["result"] = "Incorrect email or password";
+        $_SESSION["message"] = "Incorrect email or password";
         header('Location: ../index.php');
     }
     
@@ -117,7 +120,7 @@ function signUp(){
           
         if(array_key_exists($email,$MyData))
         {
-            $_SESSION["result"] = "You're already registered";
+            $_SESSION["message"] = "You're already registered";
             header('Location: ../index.php');
         }
         else
@@ -128,14 +131,66 @@ function signUp(){
             if(mysqli_query($conn,$sql))
             {   
                 sendMail($email,$generatedPassword);
-                $_SESSION["result"] = "You're registered, the password was sent to your email";
+                $_SESSION["message"] = "You're registered, the password was sent to your email";
                 header('Location: ../index.php');
             }
             else{
-                $_SESSION["result"] = "Something went wrong";
+                $_SESSION["message"] = "Something went wrong";
                 header('Location: ../index.php');
             }
         } 
              
     }
 }  
+function insertIntoHistory()
+{   global $conn;
+    $sql="  SELECT order_id, students.student_name as order_student_name, order_date ,books.book_name as order_book_name FROM orders
+            INNER JOIN students on students.student_token=orders.order_student_token
+            INNER JOIN books on books.book_id=orders.order_book_id 
+            ORDER BY order_date DESC";
+    $result=mysqli_query($conn,$sql);
+    $MyData=array();
+    foreach($result as $row)
+    {
+        $MyData[]=$row;  //$row['order_id']
+    }
+
+    for($i=0;$i<7;$i++)
+    {   
+
+        echo'<tr scope="row">
+                <td class="text-secondary fs-7 " scope="col">#'.$MyData[$i]['order_id'].'</td>
+                <td class="text-secondary fs-7 " scope="col">'.$MyData[$i]['order_book_name'].'</td>
+                <td class="text-secondary fs-7 " scope="col">'.$MyData[$i]['order_student_name'].'</td>
+                <td class="text-secondary fs-7 text-center" scope="col">'.$MyData[$i]['order_date'].'</td>
+            </tr>';
+    }
+}
+function insertIntoStats()
+{
+    global $conn;
+    $sql="  SELECT book_name,book_quantite, book_id, COUNT(order_book_id) as sold FROM orders 
+            INNER JOIN books on book_id = order_book_id
+            WHERE order_book_id =book_id
+            GROUP BY book_name 
+            ORDER BY sold DESC";
+    $result=mysqli_query($conn,$sql);
+    $MyData=array();
+    foreach($result as $row)
+    {
+        $MyData[]=$row;
+    }
+    for($i=0;$i<7;$i++)
+    {   
+        $available=$MyData[$i]['book_quantite']-$MyData[$i]['sold'];
+        echo'<tr>
+                <td class="text-secondary fs-7 " scope="col">#'.$MyData[$i]['book_id'].'</td>
+                <td class="text-secondary fs-7 " scope="col">'.$MyData[$i]['book_name'].'</td>
+                <td class="text-secondary fs-7 text-center" scope="col">'.$MyData[$i]['sold'].'</td>
+                <td class="text-secondary fs-7 text-center" scope="col">'.$available.'</td>
+            </tr> ';
+    }
+}
+
+
+?>

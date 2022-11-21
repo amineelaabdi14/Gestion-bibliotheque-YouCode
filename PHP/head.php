@@ -8,6 +8,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="../CSS/BOOTSTRAP/css/bootstrap.min.css">
     <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <script src="https://kit.fontawesome.com/6360d947ff.js" crossorigin="anonymous"></script>
     <!-- END CSS -->
     <script src="../CSS/BOOTSTRAP/js/bootstrap.min.js"></script>

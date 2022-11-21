@@ -16,8 +16,7 @@ if(isset($_COOKIE['UserToken']) )
     }
 }
 else
-{   
-    // die('No cookie');
+{  
     header('Location: login.php');
 }
 ?>

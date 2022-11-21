@@ -1,5 +1,6 @@
-<?php 
+<?php
 include 'script.php';
+
 if(isset($_COOKIE['UserToken']) )
 {   
     header('Location: dashboard.php');
@@ -10,21 +11,9 @@ if(isset($_COOKIE['UserToken']) )
 <?php include('head.php') ?>
 <body>
        
-<?php
-        if(isset($_SESSION["result"])){
-            if($_SESSION["result"] == "You're registered, the password was sent to your email"){
-                echo '<div id="loginErrorAlert" class="alert alert-success alert-dismissible fade show">';
-           echo($_SESSION["result"]);
-           echo '</div>';
-            }
-           else{
-            echo '<div id="loginErrorAlert" class="alert alert-danger alert-dismissible fade show">';
-           echo($_SESSION["result"]);
-           echo '</div>';
-           }
-           
-        }
-        ?>
+    <?php   
+        include 'messages.php';
+    ?>
     <div id="loginContainer" class="container">
         <img src="../CSS/IMAGES/logo.png" alt="YouCode" class="mt-4 logoContainer">
         <form action="script.php" class="form d-flex flex-column " method="POST">
