@@ -5,14 +5,14 @@
 <html lang="en">
 <?php include 'head.php';
 ?>
-<body class="MyContent" >
+<body class="MyContent">
     <?php include 'navbar.php';
         ?>
-    <div class="row">
+    <div>
         <?php include 'sidebar.php';
         ?>
-        <div id="dashboardContent" class="" style="">
-            <div id="historyCantainer" class="box table-responsive mt0 mt-lg-1">
+        <div id="pageContent" class="">
+            <div id="historyContainer" class="box table-responsive mt0 mt-lg-1">
                 <table class="table table-borderless rounded-1">
                     <thead>
                         <tr>

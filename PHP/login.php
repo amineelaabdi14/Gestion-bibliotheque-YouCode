@@ -9,12 +9,12 @@ if(isset($_COOKIE['UserToken']) )
 <!DOCTYPE html>
 <html lang="en">
 <?php include('head.php') ?>
-<body>
+<body id="loginContent">
        
     <?php   
         include 'messages.php';
     ?>
-    <div id="loginContainer" class="container">
+    <div id="LoginformContainer" class="container">
         <img src="../CSS/IMAGES/logo.png" alt="YouCode" class="mt-4 logoContainer">
         <form action="script.php" class="form d-flex flex-column " method="POST">
             

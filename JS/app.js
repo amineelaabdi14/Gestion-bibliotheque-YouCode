@@ -23,7 +23,7 @@ function createAccount ()
     document.querySelector('a[onclick="createAccount()"]').setAttribute("onclick","alrMember()")
 
     fullName.innerHTML=`<label for="fullname" class="MyLabels">Full Name</label><br><input type="text" name="fullName" id="" class="MyInputs">`;
-    document.getElementById('loginContainer').style.height="500px";                 
+    document.getElementById('LoginformContainer').style.height="500px";                 
 }
 function alrMember()
 {   
@@ -48,7 +48,7 @@ function alrMember()
 
     document.querySelector('a[onclick="alrMember()"]').setAttribute("onclick","createAccount()");
 
-    document.getElementById('loginContainer').style.height="400px";  
+    document.getElementById('LoginformContainer').style.height="400px";  
 }
 function validateEmail() {
     
@@ -102,20 +102,40 @@ function nav(Dir){
     else if(direction=="fa-solid fa-user b- fs-5")
     {   
         window.location.href="../PHP/profile.php";
-        document.getElementsByClassName('fa-solid fa-user b- fs-5')[0].parentElement.style.backgroundColor="#038DFE";
-        // console.log(document.getElementsByClassName('fa-solid fa-user b- fs-5')[0]);
-        
-        
-        // document.getElementsByClassName('fa-solid fa-user b- fs-5')[0].parentElement.style.backgroundColor="#038DFE";
-        
     }
     else if(direction=="fa-solid fa-chart-line fs-5")
     {   
-        // window.location.href="../PHP/dashboard.php";
+        window.location.href="../PHP/dashboard.php";
     }
     else if(direction=="fa-solid fa-table-columns fs-5")
     {
         window.location.href="../PHP/productslist.php";
     }
+
+}
+function showAddModal(){
+    document.getElementById('addModal').style.display="block";
+}
+
+
+function showactions(element)
+{   
+    let MyElement=element;
+    MyElement.children[3].removeAttribute("style");
+    MyElement.style.backgroundColor="#38383d";
+}
+
+
+function hideactions(element)
+{   
+    let MyElement=element;
+    MyElement.children[3].setAttribute("style","visibility: hidden;");
+    MyElement.style.backgroundColor="#18181b";
+}
+
+function showEditModal(id)
+{   
+    let book_id=id;
+    // window.location.href=`../PHP/productslist.php?showmodal=${book_id}`;
 
 }

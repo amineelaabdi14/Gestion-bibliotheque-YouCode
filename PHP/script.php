@@ -1,5 +1,4 @@
 <?php
-
     //Import PHPMailer classes into the global namespace
     //These must be at the top of your script, not inside a function
     use PHPMailer\PHPMailer\PHPMailer;
@@ -10,17 +9,15 @@
     session_start();
  
 if(isset($_POST['signMeIn']))      signIn();    
-if(isset($_POST['signMeUp']))      signUp();  
+if(isset($_POST['signMeUp']))      signUp();
 
 function sendMail($email,$password)
 {   
-    
+    //Load Composer's autoloader
+    require '../vendor/autoload.php';
 
-//Load Composer's autoloader
-require '../vendor/autoload.php';
-
-//Create an instance; passing `true` enables exceptions
-$mail = new PHPMailer(true);
+    //Create an instance; passing `true` enables exceptions
+    $mail = new PHPMailer(true);
 
     //Server settings
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
@@ -67,7 +64,7 @@ function generateToken($userName)
 
 function signIn(){
     global $conn;
-    $email = $_POST['email'];;
+    $email = $_POST['email'];
 
     $password = $_POST['password'];
     $sql = "SELECT * FROM admins WHERE admin_email = '$email'";
@@ -142,6 +139,7 @@ function signUp(){
              
     }
 }  
+
 function insertIntoHistory()
 {   global $conn;
     $sql="  SELECT order_id, students.student_name as order_student_name, order_date ,books.book_name as order_book_name FROM orders
@@ -191,6 +189,28 @@ function insertIntoStats()
             </tr> ';
     }
 }
+
+function insertIntoProducts()
+{
+    global $conn;
+    $sql="SELECT * FROM books ORDER BY book_id DESC";
+    $result=mysqli_query($conn,$sql);
+    echo '<button onclick="showEditModal()"></button>';
+    foreach($result as $row)
+    {
+        $id=$row['book_id'];
+        $name=$row['book_name'];
+        $quantite=$row['book_quantite'];
+        echo '<tr scope="row" onmouseover="showactions(this)" onclick="showactions(this)" onmouseout="hideactions(this)" style="cursor: pointer;">
+                <td class="text-secondary fs-7 " scope="col">#'.$id.'</td>
+                <td class="text-secondary fs-7 " scope="col">'.$name.'</td>
+                <td class="text-secondary fs-7 " scope="col">'.$quantite.'</td>
+                <td class="d-flex justify-content-around" style="visibility: hidden;" ><a href="update.php?showmodal='.$id.'" ><i class="bi fs-6 text-primary bi-pencil-square" ></i></a><i class="bi fs-6 text-danger bi-x-square"></i></td>
+            </tr>';
+    }
+}
+
+
 
 
 ?>
