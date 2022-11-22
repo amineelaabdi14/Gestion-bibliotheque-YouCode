@@ -14,9 +14,9 @@
         <?php include 'sidebar.php';
         ?>
         <div id="pageContent" class="">
-            <div class="d-flex justify-content-end ps-3 pe-3 ps-sm-5 pe-lg-5 justify-content-sm-between mb-4">
+            <div class="d-flex justify-content-start ps-3 pe-3 ps-sm-5 pe-lg-5 justify-content-sm-between mb-4">
                 <span class="text-secondary fs-4 fw-bold d-none d-sm-inline">Total Products :<span id="products-count" class="fw-bold fs-3 ms-1" style="color:#038DFE;"><?=productsCount();?></span></span>
-                <button type="button" name="add-product" data-bs-toggle="modal" data-bs-target="#addModal">
+                <button type="button" name="add-product" class="" data-bs-toggle="modal" data-bs-target="#addModal">
                     Add Product
                 </button>
             </div>

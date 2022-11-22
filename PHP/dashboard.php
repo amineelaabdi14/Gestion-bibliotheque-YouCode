@@ -33,7 +33,7 @@
                 </table>
             </div>
 
-            <div id="statsContainer" class="box table-responsive mt-4">
+            <div id="statsContainer" class="box table-responsive mt-3">
                 <table class="table table-borderless rounded-1">
                     <thead>
                         <tr>
@@ -43,7 +43,7 @@
                             <th class="text-white fs-7 " scope="col">Book Id</th>
                             <th class="text-white fs-7 " scope="col">Book Name</th>
                             <th class="text-white fs-7 text-center" scope="col">Borrows<i class="text-white bi bi-caret-down-fill fs-6 "></i></th>
-                            <th class="text-white fs-7 text-center" scope="col">Stock available<i class="text-white bi bi-caret-down-fill fs-6"></i></th>
+                            <th class="text-white fs-7 text-center" scope="col">Stock available</th>
                         </tr>
                     </thead>
                     <tbody>

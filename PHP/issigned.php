@@ -16,7 +16,7 @@ if(isset($_COOKIE['UserToken']) )
     }
 }
 else
-{  
+{  $_SESSION['message']="You're not signed in";
     header('Location: login.php');
 }
 ?>

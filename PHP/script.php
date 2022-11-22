@@ -4,14 +4,19 @@
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
     include 'db-con.php';
+
+
     // Start the session
     session_start();
+
+
     //  ROUTING
     if(isset($_POST['signMeIn']))      signIn();    
     if(isset($_POST['signMeUp']))      signUp();
     if(isset($_GET['delete']))      deleteBook();
     if(isset($_POST['addBtn']))      addBook();
     if(isset($_POST['editBtn']))      editBook();
+    if(isset($_POST['save-profile']))      saveProfile();
 
 function sendMail($email,$password)
 {   
@@ -147,17 +152,15 @@ function insertIntoHistory()
     $sql="  SELECT order_id, students.student_name as order_student_name, order_date ,books.book_name as order_book_name FROM orders
             INNER JOIN students on students.student_token=orders.order_student_token
             INNER JOIN books on books.book_id=orders.order_book_id 
-            ORDER BY order_date DESC";
+            ORDER BY order_date DESC
+            LIMIT 7";
     $result=mysqli_query($conn,$sql);
     $MyData=array();
     foreach($result as $row)
     {
         $MyData[]=$row;
     }
-    if(sizeof ($MyData)<7)  $limit=sizeof ($MyData);
-    else $limit=7;
-   
-    for($i=0;$i<$limit;$i++)
+    for($i=0;$i<sizeof($MyData);$i++)
     {   
 
         echo'<tr scope="row">
@@ -176,16 +179,15 @@ function insertIntoStats()
             INNER JOIN books on book_id = order_book_id
             WHERE order_book_id =book_id
             GROUP BY book_name 
-            ORDER BY sold DESC";
+            ORDER BY sold DESC
+            LIMIT 5";
     $result=mysqli_query($conn,$sql);
     $MyData=array();
     foreach($result as $row)
     {
         $MyData[]=$row;
     }
-    if(sizeof ($MyData)<7)  $limit=sizeof ($MyData);
-    else $limit=7;
-    for($i=0;$i<$limit;$i++)
+    for($i=0;$i<sizeof($MyData);$i++)
     {   
         $available=$MyData[$i]['book_quantite']-$MyData[$i]['sold'];
         echo'<tr>
@@ -271,6 +273,38 @@ function editBook()
 }
 
 
-
+function saveProfile()
+{
+    global $conn;
+    $name=$_POST['edit-name'];
+    $email=$_POST['edit-email'];
+    $birthday=$_POST['birthday'];
+    if(isset($_POST['edit-newpassword'])) $newpassword=$_POST['edit-newpassword'];
+    else $newpassword;
+    $password=$_POST['edit-curentpassword'];
+    if(empty($password))
+    {   
+        $_SESSION['message']="Please enter your password";
+        
+        header('Location: profile.php');
+    }
+    else if(password_verify($password, $_SESSION['password']))
+    {
+        if(empty($newpassword)) $passwordToInsert=$_SESSION['password'];
+        else $passwordToInsert=password_hash($newpassword,PASSWORD_DEFAULT);
+        $sql="UPDATE admins SET admin_name='$name',admin_email='$email',admin_password='$passwordToInsert' WHERE admin_email='$email'";
+        mysqli_query($conn,$sql);
+        setcookie('UserToken',$token,time()-1,'/');
+        $_SESSION['message']="Profile updated successfully";
+        header('Location: login.php');
+    }
+    else
+    {   
+        $_SESSION['message']='Wrong Password';
+        header('Location: profile.php');
+    }
+    
+    
+}
 
 ?>

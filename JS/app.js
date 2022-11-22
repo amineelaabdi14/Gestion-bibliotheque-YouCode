@@ -137,3 +137,18 @@ function navToProducts()
 {
     window.location.href="../PHP/productslist.php";
 }
+
+function checkPassword()
+{   
+    
+    let password=document.querySelector('input[name=edit-newpassword]').value;
+    let pattern=/[a-z]{1,4}[A-Z]+\d+/;
+    if(pattern.test(password)||password=="")
+    {
+        passwordError.innerText="";
+    }
+    else
+    {
+        passwordError.innerText="Low security";
+    }
+}

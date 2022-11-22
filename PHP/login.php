@@ -42,7 +42,7 @@ if(isset($_COOKIE['UserToken']) )
     <script src="../JS/app.js">
     </script>
     <?php 
-    unset($_SESSION['result']);
+    unset($_SESSION['message']);
     ?>
 </body>
 </html>
