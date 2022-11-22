@@ -1,5 +1,5 @@
 <?php
-include 'script.php';
+include 'INCLUDES/script.php';
 
 if(isset($_COOKIE['UserToken']) )
 {   
@@ -8,15 +8,15 @@ if(isset($_COOKIE['UserToken']) )
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<?php include('head.php') ?>
+<?php include('INCLUDES/head.php') ?>
 <body id="loginContent">
        
     <?php   
-        include 'messages.php';
+        include 'INCLUDES/messages.php';
     ?>
     <div id="LoginformContainer" class="container">
         <img src="../CSS/IMAGES/logo.png" alt="YouCode" class="mt-4 logoContainer">
-        <form action="script.php" class="form d-flex flex-column " method="POST">
+        <form action="INCLUDES/script.php" class="form d-flex flex-column " method="POST">
             
             <div id="emailFormContainer">
                 <label for="email" class="MyLabels">EMAIL</label><br>

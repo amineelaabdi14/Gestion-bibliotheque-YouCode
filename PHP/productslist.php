@@ -1,17 +1,17 @@
 <?php 
     
-    include('issigned.php');
+    include('INCLUDES/issigned.php');
     
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<?php include 'head.php';
+<?php include 'INCLUDES/head.php';
 ?>
 <body>
-    <?php include 'navbar.php';
+    <?php include 'INCLUDES/navbar.php';
     ?>
     <div>
-        <?php include 'sidebar.php';
+        <?php include 'INCLUDES/sidebar.php';
         ?>
         <div id="pageContent" class="">
             <div class="d-flex justify-content-start ps-3 pe-3 ps-sm-5 pe-lg-5 justify-content-sm-between mb-4">
@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form action="script.php" method="POST" id="MyForm">
+                    <form action="INCLUDES/script.php" method="POST" id="MyForm">
                         <input type="hidden" name="Myid" value="">
                         <div>
                             <label for="BookName" class="MyLabels">BOOK NAME</label>

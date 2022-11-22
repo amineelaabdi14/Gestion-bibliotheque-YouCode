@@ -1,15 +1,15 @@
 <?php 
-    include('issigned.php');
+    include('INCLUDES/issigned.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<?php include 'head.php';
+<?php include 'INCLUDES/head.php';
 ?>
 <body class="MyContent">
-    <?php include 'navbar.php';
+    <?php include 'INCLUDES/navbar.php';
         ?>
     <div>
-        <?php include 'sidebar.php';
+        <?php include 'INCLUDES/sidebar.php';
         ?>
         <div id="pageContent" class="">
             <div id="historyContainer" class="box table-responsive mt0 mt-lg-1">

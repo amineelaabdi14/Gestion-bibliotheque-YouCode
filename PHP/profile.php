@@ -1,22 +1,22 @@
 <?php 
-    include('issigned.php');
-    include('messages.php');
+    include('INCLUDES/issigned.php');
+    include('INCLUDES/messages.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <?php include 'head.php';
+    <?php include 'INCLUDES/head.php';
     ?>
     <body class="MyContent">
-        <?php include 'navbar.php';?>
+        <?php include 'INCLUDES/navbar.php';?>
         <div>
-            <?php include 'sidebar.php';?> 
+            <?php include 'INCLUDES/sidebar.php';?> 
             <script>
                 document.getElementsByClassName('fa-solid fa-user b- fs-5')[0].parentElement.style.backgroundColor="#038DFE";
                 document.getElementsByClassName('fa-solid fa-chart-line fs-5')[0].parentElement.removeAttribute("style");
             </script>
             <div id="pageContent" class="" style="">
                 <div id="profileFormContainer" class="container">
-                    <form id="profile-form" action="script.php"class="form d-flex flex-column " method="POST">
+                    <form id="profile-form" action="INCLUDES/script.php"class="form d-flex flex-column " method="POST">
                         <div class="d-flex justify-content-center mt-4">
                             <img id="editImage" src="../CSS/IMAGES/pdp.jpeg" alt="" class="rounded-circle">
                         </div>
