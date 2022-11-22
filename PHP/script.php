@@ -1,15 +1,17 @@
 <?php
     //Import PHPMailer classes into the global namespace
-    //These must be at the top of your script, not inside a function
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
     include 'db-con.php';
     // Start the session
     session_start();
- 
-if(isset($_POST['signMeIn']))      signIn();    
-if(isset($_POST['signMeUp']))      signUp();
+    //  ROUTING
+    if(isset($_POST['signMeIn']))      signIn();    
+    if(isset($_POST['signMeUp']))      signUp();
+    if(isset($_GET['delete']))      deleteBook();
+    if(isset($_POST['addBtn']))      addBook();
+    if(isset($_POST['editBtn']))      editBook();
 
 function sendMail($email,$password)
 {   
@@ -59,7 +61,6 @@ function generate_password()
 function generateToken($userName)
 {
     return hash_hmac('md5',$userName, 'iHopeNoGuessesIt');
-    
 }
 
 function signIn(){
@@ -82,7 +83,7 @@ function signIn(){
             $sql="UPDATE admins SET admin_token= '$newToken' WHERE admin_email ='$MyDataEmail'";
             mysqli_query($conn,$sql);
             $_SESSION['name']     = $MyData['admin_name'];
-            $_SESSION['birthday'] = $MyData['admin_birthday'];
+            if(!empty($MyData['admin_birthday']))     $_SESSION['birthday'] = $MyData['admin_birthday'];
             $_SESSION['email']    = $MyData['admin_email'];
             header('Location: dashboard.php');
         }
@@ -141,7 +142,8 @@ function signUp(){
 }  
 
 function insertIntoHistory()
-{   global $conn;
+{   
+    global $conn;
     $sql="  SELECT order_id, students.student_name as order_student_name, order_date ,books.book_name as order_book_name FROM orders
             INNER JOIN students on students.student_token=orders.order_student_token
             INNER JOIN books on books.book_id=orders.order_book_id 
@@ -150,10 +152,12 @@ function insertIntoHistory()
     $MyData=array();
     foreach($result as $row)
     {
-        $MyData[]=$row;  //$row['order_id']
+        $MyData[]=$row;
     }
-
-    for($i=0;$i<7;$i++)
+    if(sizeof ($MyData)<7)  $limit=sizeof ($MyData);
+    else $limit=7;
+   
+    for($i=0;$i<$limit;$i++)
     {   
 
         echo'<tr scope="row">
@@ -164,6 +168,7 @@ function insertIntoHistory()
             </tr>';
     }
 }
+
 function insertIntoStats()
 {
     global $conn;
@@ -178,7 +183,9 @@ function insertIntoStats()
     {
         $MyData[]=$row;
     }
-    for($i=0;$i<7;$i++)
+    if(sizeof ($MyData)<7)  $limit=sizeof ($MyData);
+    else $limit=7;
+    for($i=0;$i<$limit;$i++)
     {   
         $available=$MyData[$i]['book_quantite']-$MyData[$i]['sold'];
         echo'<tr>
@@ -193,21 +200,74 @@ function insertIntoStats()
 function insertIntoProducts()
 {
     global $conn;
-    $sql="SELECT * FROM books ORDER BY book_id DESC";
+    $sql="SELECT book_id, COUNT(order_book_id) as sold FROM books 
+            INNER JOIN orders on book_id = order_book_id
+            GROUP BY book_id";
+    
     $result=mysqli_query($conn,$sql);
-    echo '<button onclick="showEditModal()"></button>';
+    $sold=array();
+    foreach($result as $row)
+    {
+        $sold[ $row['book_id'] ]=$row;
+    }
+    $sql="SELECT * FROM books";
+    $result=mysqli_query($conn,$sql);
+
     foreach($result as $row)
     {
         $id=$row['book_id'];
         $name=$row['book_name'];
         $quantite=$row['book_quantite'];
+
+        if(array_key_exists( $id,$sold) )            $stock=$quantite-$sold[$id]['sold'];
+        else                                        $stock=$quantite;
         echo '<tr scope="row" onmouseover="showactions(this)" onclick="showactions(this)" onmouseout="hideactions(this)" style="cursor: pointer;">
                 <td class="text-secondary fs-7 " scope="col">#'.$id.'</td>
                 <td class="text-secondary fs-7 " scope="col">'.$name.'</td>
-                <td class="text-secondary fs-7 " scope="col">'.$quantite.'</td>
-                <td class="d-flex justify-content-around" style="visibility: hidden;" ><a href="update.php?showmodal='.$id.'" ><i class="bi fs-6 text-primary bi-pencil-square" ></i></a><i class="bi fs-6 text-danger bi-x-square"></i></td>
+                <td class="text-secondary fs-7 " scope="col">'.$stock.'</td>
+                <td class="d-flex justify-content-around" style="visibility: hidden;" ><a href="update.php?showmodal='.$id.'" ><i class="bi fs-6 text-primary bi-pencil-square" ></i></a><a href="update.php?delete='.$id.'"><i class="bi fs-6 text-danger bi-x-square" ></i></a></td>
             </tr>';
     }
+}
+
+function deleteBook()
+{
+    $id=$_GET['delete'];
+    global $conn;
+    $sql="DELETE FROM books WHERE book_id=$id";
+    mysqli_query($conn,$sql);
+    header('Location: productslist.php');
+}
+
+function addBook()
+{
+    global $conn;
+    $name=$_POST['BookName'];
+    $quantite=$_POST['quantity'];
+    $sql="INSERT INTO books (book_name,book_quantite) VALUES ('$name','$quantite')";
+    mysqli_query($conn,$sql);
+    header('Location: productslist.php');
+}
+
+function productsCount()
+{
+    $sql="SELECT COUNT(book_id) as count FROM books";
+    global $conn;
+    $result=mysqli_query($conn,$sql);
+    $Count=mysqli_fetch_assoc($result);
+    echo $Count['count'];
+}
+
+
+function editBook()
+{
+    global $conn;
+    $name=$_POST['BookName'];
+    $quantite=$_POST['quantity'];
+    $id=$_POST['Myid'];
+    $sql="UPDATE books SET book_name='$name',book_quantite='$quantite' WHERE book_id=$id";
+    mysqli_query($conn,$sql);
+    header('Location: productslist.php');
 }
 
 

@@ -133,9 +133,7 @@ function hideactions(element)
     MyElement.style.backgroundColor="#18181b";
 }
 
-function showEditModal(id)
-{   
-    let book_id=id;
-    // window.location.href=`../PHP/productslist.php?showmodal=${book_id}`;
-
+function navToProducts()
+{
+    window.location.href="../PHP/productslist.php";
 }

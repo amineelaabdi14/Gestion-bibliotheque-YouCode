@@ -195,7 +195,7 @@ table{
 {
     color: #038DFE;
 }
-#FormContainer{
+#profileFormContainer{
     background-color:#18181b;
     width: 70vw;
     height: 670px;
@@ -242,7 +242,7 @@ button[name="add-product"]
 #quantityInput{
     width: 20%;
 }
-button[name="addBtn"]
+button[name="addBtn"],button[name="editBtn"]
 {   
     background-color: #038DFE;
     width: 75%;

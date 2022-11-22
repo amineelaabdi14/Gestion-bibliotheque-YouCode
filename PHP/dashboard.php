@@ -21,7 +21,7 @@
                         <tr>
                             <th class="text-white fs-7 " scope="col">Book Id</th>
                             <th class="text-white fs-7 " scope="col">Book Name</th>
-                            <th class="text-white fs-7 " scope="col">Stendent Name</th> 
+                            <th class="text-white fs-7 " scope="col">Student Name</th> 
                             <th class="text-white fs-7 text-center" scope="col">Date<i class="text-white bi bi-caret-down-fill fs-6 "></i></th>
                         </tr>
                     </thead>
@@ -33,7 +33,7 @@
                 </table>
             </div>
 
-            <div id="statsContainer" class="box table-responsive mt-5">
+            <div id="statsContainer" class="box table-responsive mt-4">
                 <table class="table table-borderless rounded-1">
                     <thead>
                         <tr>

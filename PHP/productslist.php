@@ -1,5 +1,5 @@
 <?php 
-
+    
     include('issigned.php');
     
 ?>
@@ -15,7 +15,7 @@
         ?>
         <div id="pageContent" class="">
             <div class="d-flex justify-content-end ps-3 pe-3 ps-sm-5 pe-lg-5 justify-content-sm-between mb-4">
-                <span class="text-secondary fs-4 fw-bold d-none d-sm-inline">Total Products :<span></span></span>
+                <span class="text-secondary fs-4 fw-bold d-none d-sm-inline">Total Products :<span id="products-count" class="fw-bold fs-3 ms-1" style="color:#038DFE;"><?=productsCount();?></span></span>
                 <button type="button" name="add-product" data-bs-toggle="modal" data-bs-target="#addModal">
                     Add Product
                 </button>
@@ -24,7 +24,7 @@
                 <table class="table table-borderless rounded-1">
                     <thead>
                         <tr>
-                            <th class="fw-bold tableTitle"scope="col">ALL PRDUCTS</th>
+                            <th class="fw-bold tableTitle"scope="col">ALL PRODUCTS</th>
                         </tr>
                         <tr>
                             <th class="text-white fs-7 " scope="col">Book Id<i class="text-white bi bi-caret-down-fill fs-6 "></i></th>
@@ -44,28 +44,29 @@
             document.getElementsByClassName('fa-solid fa-chart-line fs-5')[0].parentElement.removeAttribute("style");
         </script>
     </div>
-    <div class="modal" id="addModal">
+    <div class="modal" id="addModal" data-bs-keyboard="false" data-bs-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title text-white">Add Book</h5>
+                    <h5 class="modal-title text-white" id="modalTitle">Add Book</h5>
                     <button type="button" class="btn-close
-                    " data-bs-dismiss="modal" aria-label="Close"></button>
+                    " onclick="navToProducts()" data-keyboard="false" data-backdrop="static"></button>
                 </div>
 
                 <div class="modal-body">
-                <form action="script.php" method="GET">
-                    <div>
-                        <label for="BookName" class="MyLabels">BOOK NAME</label>
-                        <input type="text" name="BookName" class="MyInputs"maxlength="35">
-                    </div>
-                    <label for="quantity" class="MyLabels mt-4">QUANTITY</label>
-                    <div class="d-flex justify-content-between">
-                        <input id="quantityInput" type="text" name="quantity" class="MyInputs" maxlength="3">
-                        <button name="addBtn" type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
+                    <form action="script.php" method="POST" id="MyForm">
+                        <input type="hidden" name="Myid" value="">
+                        <div>
+                            <label for="BookName" class="MyLabels">BOOK NAME</label>
+                            <input id="BookNameInput" type="text"name=" BookName" class="MyInputs" maxlength="35">
+                        </div>
+                        <label for="quantity" class="MyLabels mt-4">QUANTITY</label>
+                        <div class="d-flex justify-content-between">
+                            <input id="quantityInput" type="text" name="quantity" class="MyInputs" maxlength="3">
+                            <button name="addBtn" type="submit" class="btn btn-primary">Add</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
