@@ -130,7 +130,7 @@ function signUp(){
         {   $generatedPassword = generate_password();
             $password = password_hash($generatedPassword,PASSWORD_DEFAULT);
             $token = generateToken($fullName);
-            $sql = "INSERT INTO admins (admin_token,admin_email, admin_password, admin_name) VALUES ('$token','$email', '$password', ' $fullName')";
+            $sql = "INSERT INTO admins (admin_token,admin_email, admin_password, admin_name,admin_birthday) VALUES ('$token','$email', '$password', ' $fullName' , '000-00-00')";
             if(mysqli_query($conn,$sql))
             {   
                 sendMail($email,$generatedPassword);
@@ -174,13 +174,12 @@ function insertIntoHistory()
 
 function insertIntoStats()
 {
-    global $conn;
+    global $conn; // WHERE order_book_id =book_id
     $sql="  SELECT book_name,book_quantite, book_id, COUNT(order_book_id) as sold FROM orders 
             INNER JOIN books on book_id = order_book_id
-            WHERE order_book_id =book_id
             GROUP BY book_name 
             ORDER BY sold DESC
-            LIMIT 5";
+            LIMIT 7";
     $result=mysqli_query($conn,$sql);
     $MyData=array();
     foreach($result as $row)
@@ -292,7 +291,7 @@ function saveProfile()
     {
         if(empty($newpassword)) $passwordToInsert=$_SESSION['password'];
         else $passwordToInsert=password_hash($newpassword,PASSWORD_DEFAULT);
-        $sql="UPDATE admins SET admin_name='$name',admin_email='$email',admin_password='$passwordToInsert' WHERE admin_email='$email'";
+        $sql="UPDATE admins SET admin_name='$name',admin_email='$email',admin_password='$passwordToInsert',admin_birthday='$birthday' WHERE admin_email='$email'";
         mysqli_query($conn,$sql);
         setcookie('UserToken',$token,time()-1,'/');
         $_SESSION['message']="Profile updated successfully";

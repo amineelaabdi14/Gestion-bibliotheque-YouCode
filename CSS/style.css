@@ -100,8 +100,8 @@ button[name="signMeIn"],button[name="signMeUp"] {
     left: 0;
 }
 #pdp{
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
 }
 
 #sideBar{
@@ -161,7 +161,7 @@ table{
     min-height: 330px;
 }
 #pageContent{
-    padding: 50px 0px 20px 270px;
+    padding: 10px 0px 20px 270px;
     height: 100vh;
     overflow: scroll;
 }

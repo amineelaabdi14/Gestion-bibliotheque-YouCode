@@ -33,7 +33,7 @@
                 </table>
             </div>
 
-            <div id="statsContainer" class="box table-responsive mt-3">
+            <div id="statsContainer" class="box table-responsive mt-2">
                 <table class="table table-borderless rounded-1">
                     <thead>
                         <tr>
