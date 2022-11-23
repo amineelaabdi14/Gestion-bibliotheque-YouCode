@@ -1,3 +1,3 @@
 <?php  
-    header('location: PHP/dashboard.php') ;
+    header('location: php/dashboard.php') ;
 ?>

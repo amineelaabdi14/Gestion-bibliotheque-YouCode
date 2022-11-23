@@ -1,24 +1,24 @@
 <?php 
-    include('INCLUDES/issigned.php');
-    include('INCLUDES/messages.php');
+    include('includes/issigned.php');
+    include('includes/messages.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <?php include 'INCLUDES/head.php';
+    <?php include 'includes/head.php';
     ?>
     <body class="MyContent">
-        <?php include 'INCLUDES/navbar.php';?>
+        <?php include 'includes/navbar.php';?>
         <div>
-            <?php include 'INCLUDES/sidebar.php';?> 
+            <?php include 'includes/sidebar.php';?> 
             <script>
                 document.getElementsByClassName('fa-solid fa-user b- fs-5')[0].parentElement.style.backgroundColor="#038DFE";
                 document.getElementsByClassName('fa-solid fa-chart-line fs-5')[0].parentElement.removeAttribute("style");
             </script>
             <div id="pageContent" class="" style="">
                 <div id="profileFormContainer" class="container">
-                    <form id="profile-form" action="INCLUDES/script.php"class="form d-flex flex-column " method="POST">
+                    <form id="profile-form" action="includes/script.php"class="form d-flex flex-column " method="POST">
                         <div class="d-flex justify-content-center mt-4">
-                            <img id="editImage" src="../CSS/IMAGES/pdp.jpeg" alt="" class="rounded-circle">
+                            <img id="editImage" src="../resources/profile-icon.png" alt="" class="">
                         </div>
                         <div id="EditName" class="mt-2">
                             <label for="edit-name" class="MyLabels">FULL NAME</label>
@@ -49,5 +49,5 @@
             </div>
         </div>
     </body>
-    <script src="../JS/app.js"></script>
+    <script src="../js/app.js"></script>
 </html>

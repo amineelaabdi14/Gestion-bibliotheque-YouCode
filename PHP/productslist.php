@@ -1,17 +1,17 @@
 <?php 
     
-    include('INCLUDES/issigned.php');
+    include('includes/issigned.php');
     
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<?php include 'INCLUDES/head.php';
+<?php include 'includes/head.php';
 ?>
 <body>
-    <?php include 'INCLUDES/navbar.php';
+    <?php include 'includes/navbar.php';
     ?>
     <div>
-        <?php include 'INCLUDES/sidebar.php';
+        <?php include 'includes/sidebar.php';
         ?>
         <div id="pageContent" class="">
             <div class="d-flex justify-content-start ps-3 pe-3 ps-sm-5 pe-lg-5 justify-content-sm-between mb-4">
@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form action="INCLUDES/script.php" method="POST" id="MyForm">
+                    <form action="includes/script.php" method="POST" id="MyForm">
                         <input type="hidden" name="Myid" value="">
                         <div>
                             <label for="BookName" class="MyLabels">BOOK NAME</label>
@@ -63,7 +63,7 @@
                         </div>
                         <label for="quantity" class="MyLabels mt-4">QUANTITY</label>
                         <div class="d-flex justify-content-between">
-                            <input id="quantityInput" type="text" name="quantity" class="MyInputs" maxlength="3">
+                            <input id="quantityInput" type="number" name="quantity" class="MyInputs" maxlength="3">
                             <button name="addBtn" type="submit" class="btn btn-primary">Add</button>
                         </div>
                     </form>
@@ -71,6 +71,6 @@
             </div>
         </div>
     </div>
-    <script src="../JS/app.js"></script>
+    <script src="../js/app.js"></script>
 </body>
 </html>

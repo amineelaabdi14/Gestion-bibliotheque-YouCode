@@ -1,5 +1,5 @@
 <?php
-include 'INCLUDES/script.php';
+include 'includes/script.php';
 
 if(isset($_COOKIE['UserToken']) )
 {   
@@ -8,15 +8,15 @@ if(isset($_COOKIE['UserToken']) )
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<?php include('INCLUDES/head.php') ?>
+<?php include('includes/head.php') ?>
 <body id="loginContent">
        
     <?php   
-        include 'INCLUDES/messages.php';
+        include 'includes/messages.php';
     ?>
     <div id="LoginformContainer" class="container">
-        <img src="../CSS/IMAGES/logo.png" alt="YouCode" class="mt-4 logoContainer">
-        <form action="INCLUDES/script.php" class="form d-flex flex-column " method="POST">
+        <img src="../resources/logo.png" alt="YouCode" class="mt-4 logoContainer">
+        <form action="includes/script.php" class="form d-flex flex-column " method="POST">
             
             <div id="emailFormContainer">
                 <label for="email" class="MyLabels">EMAIL</label><br>
@@ -39,7 +39,7 @@ if(isset($_COOKIE['UserToken']) )
         </form>
     </div>
     
-    <script src="../JS/app.js">
+    <script src="../js/app.js">
     </script>
     <?php 
     unset($_SESSION['message']);

@@ -6,7 +6,7 @@ if(isset($_GET["signout"]))
     {
         setcookie("UserToken", "", time() - 3600,"/");
         $_SESSION["message"] = "You were signed out";
-        header('Location: ./login.php');
+        header('Location: ../login.php');
     }
 }
     

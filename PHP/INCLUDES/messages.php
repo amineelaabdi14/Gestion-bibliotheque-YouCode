@@ -1,6 +1,4 @@
 <?php
-
-
 if(isset($_SESSION["message"])){
     if($_SESSION["message"] == "You're registered, the password was sent to your email" || $_SESSION["message"] == "You were signed out" ||$_SESSION["message"] =="Profile updated successfully")
     {

@@ -18,7 +18,7 @@ body {
    min-width: 345px;
 }
 #loginContent  {
-    background-image: url(IMAGES/bgLogin.jpg);
+    background-image: url('../resources/bgLogin.jpg');
    background-repeat: no-repeat;
    background-size: cover;
 }

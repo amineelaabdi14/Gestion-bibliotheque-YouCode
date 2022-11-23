@@ -1,15 +1,15 @@
 <?php 
-    include('INCLUDES/issigned.php');
+    include('includes/issigned.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<?php include 'INCLUDES/head.php';
+<?php include 'includes/head.php';
 ?>
 <body class="MyContent">
-    <?php include 'INCLUDES/navbar.php';
+    <?php include 'includes/navbar.php';
         ?>
     <div>
-        <?php include 'INCLUDES/sidebar.php';
+        <?php include 'includes/sidebar.php';
         ?>
         <div id="pageContent" class="">
             <div id="historyContainer" class="box table-responsive mt0 mt-lg-1">
@@ -59,6 +59,6 @@
     
     
 </body>
-<script src="../JS/app.js"></script>
+<script src="../js/app.js"></script>
 
 </html>

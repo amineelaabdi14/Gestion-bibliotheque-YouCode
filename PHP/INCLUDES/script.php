@@ -21,7 +21,7 @@
 function sendMail($email,$password)
 {   
     //Load Composer's autoloader
-    require '/vendor/autoload.php';
+    require 'vendor/autoload.php';
 
     //Create an instance; passing `true` enables exceptions
     $mail = new PHPMailer(true);
@@ -90,7 +90,7 @@ function signIn(){
             $_SESSION['name']     = $MyData['admin_name'];
             if(!empty($MyData['admin_birthday']))     $_SESSION['birthday'] = $MyData['admin_birthday'];
             $_SESSION['email']    = $MyData['admin_email'];
-            header('Location: ./dashboard.php');
+            header('Location: ../dashboard.php');
         }
         else{
             $_SESSION["message"] = "Incorrect email or password";
@@ -100,7 +100,7 @@ function signIn(){
     }
     else{
         $_SESSION["message"] = "Incorrect email or password";
-        header('Location: ./login.php');
+        header('Location: ../login.php');
     }
     
 }
@@ -227,7 +227,7 @@ function insertIntoProducts()
                 <td class="text-secondary fs-7 " scope="col">#'.$id.'</td>
                 <td class="text-secondary fs-7 " scope="col">'.$name.'</td>
                 <td class="text-secondary fs-7 " scope="col">'.$stock.'</td>
-                <td class="d-flex justify-content-around" style="visibility: hidden;" ><a href="../../update.php?showmodal='.$id.'" ><i class="bi fs-6 text-primary bi-pencil-square" ></i></a><a href="../../update.php?delete='.$id.'"><i class="bi fs-6 text-danger bi-x-square" ></i></a></td>
+                <td class="d-flex justify-content-around" style="visibility: hidden;" ><a href="update.php?showmodal='.$id.'" ><i class="bi fs-6 text-primary bi-pencil-square" ></i></a><a href="update.php?delete='.$id.'"><i class="bi fs-6 text-danger bi-x-square" ></i></a></td>
             </tr>';
     }
 }
@@ -238,7 +238,7 @@ function deleteBook()
     global $conn;
     $sql="DELETE FROM books WHERE book_id=$id";
     mysqli_query($conn,$sql);
-    header('Location: ./productslist.php');
+    header('Location: productslist.php');
 }
 
 function addBook()
@@ -248,7 +248,7 @@ function addBook()
     $quantite=$_POST['quantity'];
     $sql="INSERT INTO books (book_name,book_quantite) VALUES ('$name','$quantite')";
     mysqli_query($conn,$sql);
-    header('Location: ./productslist.php');
+    header('Location: ../productslist.php');
 }
 
 function productsCount()
@@ -269,7 +269,7 @@ function editBook()
     $id=$_POST['Myid'];
     $sql="UPDATE books SET book_name='$name',book_quantite='$quantite' WHERE book_id=$id";
     mysqli_query($conn,$sql);
-    header('Location: ./productslist.php');
+    header('Location: ../productslist.php');
 }
 
 
@@ -286,7 +286,7 @@ function saveProfile()
     {   
         $_SESSION['message']="Please enter your password";
         
-        header('Location: ./profile.php');
+        header('Location: ../profile.php');
     }
     else if(password_verify($password, $_SESSION['password']))
     {
@@ -296,12 +296,12 @@ function saveProfile()
         mysqli_query($conn,$sql);
         setcookie('UserToken',$token,time()-1,'/');
         $_SESSION['message']="Profile updated successfully";
-        header('Location: ./login.php');
+        header('Location: ../login.php');
     }
     else
     {   
         $_SESSION['message']='Wrong Password';
-        header('Location: ./profile.php');
+        header('Location: ../profile.php');
     }
     
     
