@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2022 at 01:13 AM
+-- Generation Time: Nov 23, 2022 at 09:57 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -41,8 +41,9 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`admin_token`, `admin_name`, `admin_email`, `admin_password`, `admin_birthday`, `admin_avatar`) VALUES
-('87a23b8a59c48bb9f1446d6169fb4d3a', ' Mohamed Amine El Aabdi', 'amineelaabdi@gmail.com', '$2y$10$rNdp16TY1TjEZ1/YTawAMeGf5jmJIHkfpa9G9evexccuP8OVXCtfm', '2004-01-14', NULL),
-('ab8d69dc99e9dc277bb7a6b3a82feeb6', ' Mouad El Amraoui', 'mouadelamraoui@gmail.com', '$2y$10$cCEnoTr4aQBmrBWl4vSaZeJK2g1O.juxW2VhVzW/LGJHbYIsbMN0W', NULL, NULL);
+('1fbdfde7383bc1d37565bbf4447996bc', ' Mohamed Amine', 'amineelaabdi@gmail.com', '$2y$10$76q7hP8Wo7N7sVoInaIyWeuD4oVRETiOEy/byGPl6ltUm8lrvR7pi', '2004-01-14', NULL),
+('704168ed3ed40cd9f3f314a1d84afc53', ' Omar EL Aabdi ', 'omarelaabdi2010@gmail.com', '$2y$10$/u1z.iOfvepN3GxLW8oKEOQlTqBUYwSLJAzEMeHC7LAID8rDk0lTi', '2022-11-14', NULL),
+('ab8d69dc99e9dc277bb7a6b3a82feeb6', ' Mouad El Amraoui', 'mouadelamraoui@gmail.com', '$2y$10$9yo69dB6paVCXPFoXUAQbekHf.9BQP8nMTzjZMtLAGkkj6.T7KH12', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -65,8 +66,10 @@ INSERT INTO `books` (`book_id`, `book_name`, `book_quantite`) VALUES
 (6, 'VILE BODIES', 20),
 (7, 'A SCANNER DARKLY', 20),
 (8, 'MOAB IS MY WASHPOT', 20),
-(9, 'NUMBER THE STARS', 20),
-(10, 'NOLI ME TANGERE', 20);
+(17, 'some book titlle', 22),
+(18, 'book title', 11),
+(19, 'In Search of Lost Time', 44),
+(20, 'Ulysses', 12);
 
 -- --------------------------------------------------------
 
@@ -86,12 +89,17 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `order_student_token`, `order_date`, `order_book_id`) VALUES
-(246, '3', '2022-11-20', 4),
-(248, '5', '2022-11-20', 6),
-(249, '1', '2022-11-20', 7),
+(1, '1', '2022-03-14', 17),
+(246, '3', '2022-11-20', 20),
+(248, '5', '2022-11-20', 19),
+(249, '1', '2022-11-20', 18),
 (250, '2', '2022-11-25', 8),
-(251, '4', '2022-11-22', 9),
-(255, '4', '2022-11-28', 4);
+(255, '4', '2022-11-28', 6),
+(256, '1', '2022-03-12', 6),
+(257, '1', '2022-03-12', 7),
+(258, '1', '2022-03-12', 17),
+(259, '1', '2022-03-12', 4),
+(260, '1', '2022-03-12', 4);
 
 -- --------------------------------------------------------
 
@@ -153,7 +161,13 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=261;
 
 --
 -- Constraints for dumped tables
